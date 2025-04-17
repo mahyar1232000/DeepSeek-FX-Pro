@@ -26,8 +26,10 @@ class TradingEngine:
         # Suppress TensorFlow GPU warnings if not needed
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = config.get('tf_log_level', '2')
 
-        # Instantiate model updater before forecast module
-        self.model_updater = ModelUpdater()
+        # Initialize ModelUpdater with configured save directory
+        save_dir = self.config.get('model_save_dir', 'models')
+        os.makedirs(save_dir, exist_ok=True)
+        self.model_updater = ModelUpdater(save_dir)
         self.forecaster = ForecastModule(self.model_updater)
 
         self.mt5 = MT5Controller()
@@ -80,7 +82,6 @@ class TradingEngine:
             self.logger.warning("No data to run cycle for %s", symbol)
             return
 
-        # Pass symbol and data to forecaster
         forecast = self.forecaster.predict(symbol, data)
         strategy = self.strategy_generator.generate(data, forecast)
 
@@ -88,7 +89,7 @@ class TradingEngine:
             self.executor.execute(strategy)
             self.portfolio_manager.update_position(strategy['symbol'], strategy['volume'])
             self.performance_tracker.record_trade(strategy['expected_pnl'])
-            self.model_updater.update(data, strategy)
+            self.model_updater.save_model(symbol, strategy.get('model', None))
             self.alerts.send(f"Executed trade on {strategy['symbol']}")
         else:
             self.logger.info("Strategy rejected by risk evaluator.")
