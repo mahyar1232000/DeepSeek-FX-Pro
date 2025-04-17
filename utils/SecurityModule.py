@@ -1,5 +1,6 @@
 # utils/SecurityModule.py
 import os
+import json
 from cryptography.fernet import Fernet
 
 
@@ -17,8 +18,10 @@ def load_credentials(path: str, key_path: str):
     encrypted_data = open(path, 'rb').read()
     try:
         decrypted_data = Fernet(key).decrypt(encrypted_data).decode()
-        login_str, password, server = decrypted_data.split(":", 2)
-        login = int(login_str)
+        credentials = json.loads(decrypted_data)
+        login = int(credentials["login"])
+        password = credentials["password"]
+        server = credentials["server"]
         return {"login": login, "password": password, "server": server}
     except Exception as e:
         print(f"Error decrypting credentials: {e}")

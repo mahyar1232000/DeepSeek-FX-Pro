@@ -78,6 +78,16 @@ pip install -r requirements.txt
        python -c "from utils.SecurityModule import encrypt_file, load_key; encrypt_file('config/credentials.json', '
        config/credentials.enc', load_key())"
 
+		OR
+		
+	Run the Script: Execute the script to generate the key and encrypt your credentials:
+		python config/CredentialGeneration.py
+		
+		This will create two files in the same directory:
+
+			key.key: Contains the Fernet key.
+			credentials.enc: Contains the encrypted credentials.
+
 4. Configure parameters in `config/config.yaml`
 
 5. Run the bot:
