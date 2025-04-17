@@ -10,7 +10,7 @@ model:
 
 strategy:
   symbols: config/symbol_list.json   # list of symbols :contentReference[oaicite:0]{index=0}
-  timeframes: [1, 15]                # M1, M15 as integer codes
+  timeframes: [ 1, 15 ]                # M1, M15 as integer codes
   bars: 1000                         # number of bars per fetch
   risk_params: config/risk_params.json   # risk settings :contentReference[oaicite:1]{index=1}
 

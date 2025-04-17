@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d84ad1e-3c34-4ee2-b2f2-e481cdf9ae1d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/logs/trading.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai_engine/ForecastModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_engine/ForecastModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai_engine/StrategyGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_engine/StrategyGenerator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/TradingEngine.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/TradingEngine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/structure.bat" beforeDir="false" afterPath="$PROJECT_DIR$/structure.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,12 +29,16 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2vr6Ztc5B8tCYQYnSquC23gsrR8" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/anaconda3/Scripts/conda.exe",
@@ -52,11 +59,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1744890910825</updated>
-      <workItem from="1744890911420" duration="6791000" />
+      <workItem from="1744890911420" duration="7535000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

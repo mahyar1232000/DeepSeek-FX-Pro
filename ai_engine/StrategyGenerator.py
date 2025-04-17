@@ -25,7 +25,7 @@ def setup_logger() -> logging.Logger:
     return logger
 
 
-class StrategyModule:
+class StrategyGenerator:
     def __init__(self) -> None:
         self.model_registry: Dict[str, tf.keras.Model] = {}
         self.scaler = MinMaxScaler()

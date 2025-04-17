@@ -4,7 +4,7 @@ import logging
 import os
 from typing import Dict, Any
 
-from ai_engine.StrategyGenerator import StrategyModule
+from ai_engine.StrategyGenerator import StrategyGenerator
 from ai_engine.RiskEvaluator import RiskEvaluator
 from ai_engine.ForecastModule import ForecastModule
 from ai_engine.ModelUpdater import ModelUpdater
@@ -16,6 +16,7 @@ from core.AlertSystem import AlertSystem
 from core.PortfolioManager import PortfolioManager
 from utils.SecurityModule import load_credentials
 from broker_interface.OrderManager import OrderManager
+
 
 class TradingEngine:
     def __init__(self, risk_params: Dict[str, Any]) -> None:
@@ -39,7 +40,7 @@ class TradingEngine:
         self.forecaster = ForecastModule(model_updater=self.model_updater)
 
         # strategy & risk (now from config)
-        self.strategy_generator = StrategyModule()
+        self.strategy_generator = StrategyGenerator()
         self.risk_evaluator = RiskEvaluator(parameters=risk_params)
 
         # execution & tracking

@@ -40,10 +40,10 @@ class ForecastModule:
         return False
 
     def forecast(
-        self,
-        symbol: str,
-        data: Any,            # → pd.DataFrame or np.ndarray
-        periods: int = 10
+            self,
+            symbol: str,
+            data: Any,  # → pd.DataFrame or np.ndarray
+            periods: int = 10
     ) -> List[float]:
         """
         Generate a forecast for the next `periods` values of `symbol`
