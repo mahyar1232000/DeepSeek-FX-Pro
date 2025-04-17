@@ -10,7 +10,7 @@ model:
 
 strategy:
   symbols: config/symbol_list.json
-  timeframes: [1, 15]
+  timeframes: [ 1, 15 ]
   bars: 1000
   risk_params: config/risk_params.json
 

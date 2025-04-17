@@ -69,13 +69,14 @@ pip install -r requirements.txt
 
 3. Add encrypted credentials:
 
-	1. Generate a new key:
-		python -c "from utils.SecurityModule import generate_key; generate_key()"
-		
-	2. Prepare a plaintext config/credentials.json with your login/password.
-	
-	3. Encrypt it:
-		python -c "from utils.SecurityModule import encrypt_file, load_key; encrypt_file('config/credentials.json', 'config/credentials.enc', load_key())"
+    1. Generate a new key:
+       python -c "from utils.SecurityModule import generate_key; generate_key()"
+
+    2. Prepare a plaintext config/credentials.json with your login/password.
+
+    3. Encrypt it:
+       python -c "from utils.SecurityModule import encrypt_file, load_key; encrypt_file('config/credentials.json', '
+       config/credentials.enc', load_key())"
 
 4. Configure parameters in `config/config.yaml`
 

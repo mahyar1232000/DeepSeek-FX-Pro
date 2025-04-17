@@ -1,58 +1,57 @@
-# ---------- main.py ----------
+# main.py
+# !/usr/bin/env python3
 import os
-import json
-import logging
-
+import argparse
 import yaml
 from core.TradingEngine import TradingEngine
-from utils.AdvancedLogger import setup_logger
-from utils.SecurityModule import load_credentials
+from utils.SecurityModule import SecurityManager
 
 
-def load_config(path: str = 'config/config.yaml') -> dict:
-    with open(path, 'r') as f:
-        return yaml.safe_load(f)
+def parse_args():
+    parser = argparse.ArgumentParser(description='DeepSeek FX Pro Trading Bot')
+    parser.add_argument('--generate_key', action='store_true', help='Generate a new encryption key')
+    parser.add_argument('--encrypt_credentials', action='store_true', help='Encrypt the credentials file')
+    parser.add_argument('--mode', type=str, default='live', choices=['live', 'backtest'],
+                        help='Trading mode: live or backtest')
+    parser.add_argument('--symbols', type=str, help='Comma-separated list of symbols to trade (for live mode)')
+    parser.add_argument('--config', type=str, default='config/config.yaml', help='Path to configuration file')
+    return parser.parse_args()
 
 
 def main():
-    config = load_config()
-
-    # --- Setup logging ---
-    log_conf = config['logging']
-    log_file = log_conf['file']
-    os.makedirs(os.path.dirname(log_file), exist_ok=True)
-    level = getattr(logging, log_conf.get('level', 'INFO').upper(), logging.INFO)
-    setup_logger('DeepSeekFX', log_file, level)
-
-    # --- Load credentials ---
-    try:
-        creds = load_credentials(
-            key_path=config['security']['key_file'],
-            enc_path=config['security']['credentials_file']
-        )
-    except Exception as e:
-        logging.error("Unable to load credentials: %s", e)
-        logging.error("Make sure you've generated a key and encrypted credentials.")
+    args = parse_args()
+    if args.generate_key:
+        security = SecurityManager()
+        key = security.generate_key().decode()
+        print(f"Generated Encryption Key: {key}")
         return
 
-    # --- Load strategy settings ---
-    with open(config['strategy']['symbols'], 'r') as f:
-        symbols = json.load(f)
-    timeframes = config['strategy']['timeframes']
-    bars = config['strategy']['bars']
-    with open(config['strategy']['risk_params'], 'r') as f:
-        risk_params = json.load(f)
-
-    # --- Initialize engine ---
-    engine = TradingEngine(risk_params=risk_params, creds=creds)
-    if not engine.initialize():
-        logging.error("Failed to connect to broker.")
+    if args.encrypt_credentials:
+        security = SecurityManager()
+        login = input("Enter your MT5 login: ")
+        password = input("Enter your MT5 password: ")
+        server = input("Enter your MT5 server: ")
+        credentials = f"{login}:{password}:{server}"
+        encrypted = security.encrypt_data(credentials)
+        os.makedirs(os.path.dirname(args.config), exist_ok=True)
+        with open('config/credentials.enc', 'wb') as f:
+            f.write(encrypted)
+        print(f"Credentials encrypted successfully to {os.path.abspath('config/credentials.enc')}")
         return
 
-    # --- Run cycles ---
-    for tf in timeframes:
-        for symbol in symbols:
-            engine.run_cycle(symbol, tf, bars)
+    # Load configuration
+    if not os.path.exists(args.config):
+        print(f"Configuration file {args.config} not found.")
+        return
+    with open(args.config, 'r') as f:
+        cfg = yaml.safe_load(f)
+
+    symbols = None
+    if args.symbols:
+        symbols = [s.strip() for s in args.symbols.split(',')]
+
+    engine = TradingEngine(cfg)
+    engine.run(mode=args.mode, symbols=symbols)
 
 
 if __name__ == "__main__":
