@@ -1,10 +1,5 @@
-# ---------- broker_interface/MT5Controller.py ----------
-"""
-Handles connection and communication with MetaTrader 5 terminal.
-"""
-import logging
 import MetaTrader5 as mt5
-
+import logging
 
 def setup_logger() -> logging.Logger:
     logger = logging.getLogger("MT5Controller")
@@ -16,14 +11,17 @@ def setup_logger() -> logging.Logger:
         logger.setLevel(logging.INFO)
     return logger
 
-
 class MT5Controller:
-    def __init__(self) -> None:
+    def __init__(self, path=None) -> None:
         self.logger = setup_logger()
+        self.path = path
 
     def connect(self, login: int, password: str, server: str) -> bool:
-        if not mt5.initialize(login=login, password=password, server=server):
+        if not mt5.initialize(path=self.path):
             self.logger.error("MT5 initialize failed: %s", mt5.last_error())
+            return False
+        if not mt5.login(login=login, password=password, server=server):
+            self.logger.error("MT5 login failed: %s", mt5.last_error())
             return False
         self.logger.info("Connected to MetaTrader 5: login %d", login)
         return True
