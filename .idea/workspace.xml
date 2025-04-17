@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9d84ad1e-3c34-4ee2-b2f2-e481cdf9ae1d" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/config/CredentialGeneration.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/DecryptCredentials.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/credentials.enc" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/key.key" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/logs/trading.log" afterDir="false" />
@@ -13,6 +14,7 @@
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai_engine/ForecastModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_engine/ForecastModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai_engine/StrategyGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_engine/StrategyGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/broker_interface/MT5Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/broker_interface/MT5Controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/credentials.enc" beforeDir="false" afterPath="$PROJECT_DIR$/config/credentials.enc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/credentials.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/credentials.json" afterDir="false" />
@@ -68,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1744890910825</updated>
-      <workItem from="1744890911420" duration="14366000" />
+      <workItem from="1744890911420" duration="16694000" />
     </task>
     <servers />
   </component>

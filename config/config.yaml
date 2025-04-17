@@ -14,6 +14,12 @@ strategy:
   bars: 1000
   risk_params: config/risk_params.json
 
+mt5:
+  terminal_path: "/opt/mt5/terminal64.exe"
+  timeout: 30          # ثانیه
+  retry_interval: 5    # ثانیه
+  max_retries: 3
+
 meta_trader:
   login: 90217066
   server: "LiteFinance-MT5-Demo"
