@@ -1,7 +1,4 @@
 # ---------- core/TradingEngine.py ----------
-"""
-Main engine to coordinate strategy execution, data handling, and order flow.
-"""
 
 import logging
 import os
@@ -20,9 +17,8 @@ from core.PortfolioManager import PortfolioManager
 from utils.SecurityModule import load_credentials
 from broker_interface.OrderManager import OrderManager
 
-
 class TradingEngine:
-    def __init__(self) -> None:
+    def __init__(self, risk_params: Dict[str, Any]) -> None:
         self.logger = logging.getLogger("TradingEngine")
         if not self.logger.handlers:
             handler = logging.StreamHandler()
@@ -42,12 +38,8 @@ class TradingEngine:
         self.model_updater = ModelUpdater(save_dir=model_dir)
         self.forecaster = ForecastModule(model_updater=self.model_updater)
 
-        # strategy & risk
+        # strategy & risk (now from config)
         self.strategy_generator = StrategyModule()
-        risk_params: Dict[str, Any] = {
-            "risk_pct": 1.0,
-            "min_reward_risk_ratio": 1.5
-        }
         self.risk_evaluator = RiskEvaluator(parameters=risk_params)
 
         # execution & tracking
@@ -66,16 +58,13 @@ class TradingEngine:
         )
 
     def run_cycle(self, symbol: str, timeframe: int, bars: int) -> None:
-        # fetch OHLCV DataFrame :contentReference[oaicite:3]{index=3}
         df = self.data_feed.get_ohlcv(symbol, timeframe, bars)
         if df is None:
-            self.logger.warning("No data to run cycle for %s", symbol)
+            self.logger.warning("No data for %s", symbol)
             return
 
-        # Forecast next N bars (ForecastModule now handles DataFrame → ndarray)
         forecast = self.forecaster.forecast(symbol, df)
 
-        # Build features explicitly to avoid positional indexing errors
         features = {
             "close": df["close"].to_numpy(),
             "volume": df["tick_volume"].to_numpy()
@@ -85,7 +74,6 @@ class TradingEngine:
             symbol=symbol
         )
 
-        # Basic risk pass/fail
         if self.risk_evaluator.evaluate(strategy):
             self.executor.execute(strategy)
             self.portfolio_manager.update_position(
@@ -94,11 +82,10 @@ class TradingEngine:
             self.performance_tracker.record_trade(
                 strategy.get("expected_pnl", 0.0)
             )
-            # retrain/update the model on new data
             self.model_updater.save_model(
                 symbol,
                 self.strategy_generator.model_registry[symbol]
             )
-            self.alerts.send(f"Executed trade on {strategy['symbol']}")
+            self.alerts.send(f"Executed trade on {symbol}")
         else:
-            self.logger.info("Strategy rejected by risk evaluator for %s.", symbol)
+            self.logger.info("Strategy rejected for %s", symbol)
