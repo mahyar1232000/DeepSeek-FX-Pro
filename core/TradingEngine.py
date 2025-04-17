@@ -5,10 +5,10 @@ import yaml
 from broker_interface.MT5Controller import MT5Controller
 from broker_interface.DataFeed import DataFeed
 from broker_interface.OrderManager import OrderManager
+from ai_engine.ModelUpdater import ModelUpdater
 from ai_engine.ForecastModule import ForecastModule
 from ai_engine.StrategyGenerator import StrategyGenerator
 from ai_engine.RiskEvaluator import RiskEvaluator
-from ai_engine.ModelUpdater import ModelUpdater
 from core.OrderExecutor import OrderExecutor
 from core.PerformanceTracker import PerformanceTracker
 from core.AlertSystem import AlertSystem
@@ -26,9 +26,12 @@ class TradingEngine:
         # Suppress TensorFlow GPU warnings if not needed
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = config.get('tf_log_level', '2')
 
+        # Instantiate model updater before forecast module
+        self.model_updater = ModelUpdater()
+        self.forecaster = ForecastModule(self.model_updater)
+
         self.mt5 = MT5Controller()
         self.data_feed = DataFeed()
-        self.forecaster = ForecastModule()
         self.strategy_generator = StrategyGenerator()
         self.risk_evaluator = RiskEvaluator()
         self.portfolio_manager = PortfolioManager()
@@ -36,7 +39,6 @@ class TradingEngine:
         self.alerts = AlertSystem()
         self.order_manager = OrderManager()
         self.executor = OrderExecutor(self.order_manager)
-        self.model_updater = ModelUpdater()
 
     def initialize(self) -> bool:
         creds = load_credentials()
@@ -78,7 +80,8 @@ class TradingEngine:
             self.logger.warning("No data to run cycle for %s", symbol)
             return
 
-        forecast = self.forecaster.predict(data)
+        # Pass symbol and data to forecaster
+        forecast = self.forecaster.predict(symbol, data)
         strategy = self.strategy_generator.generate(data, forecast)
 
         if self.risk_evaluator.evaluate(strategy):

@@ -4,7 +4,7 @@ import os
 import argparse
 import yaml
 from core.TradingEngine import TradingEngine
-from utils.SecurityModule import SecurityManager
+from utils.SecurityModule import SecurityManager, load_credentials
 
 
 def parse_args():
