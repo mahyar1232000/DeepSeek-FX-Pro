@@ -20,6 +20,7 @@ def parse_args():
 
 def main():
     args = parse_args()
+
     if args.generate_key:
         security = SecurityManager()
         key = security.generate_key().decode()
@@ -43,13 +44,13 @@ def main():
     if not os.path.exists(args.config):
         print(f"Configuration file {args.config} not found.")
         return
+
     with open(args.config, 'r') as f:
         cfg = yaml.safe_load(f)
 
-    symbols = None
-    if args.symbols:
-        symbols = [s.strip() for s in args.symbols.split(',')]
+    symbols = [s.strip() for s in args.symbols.split(',')] if args.symbols else None
 
+    # Initialize and run trading engine
     engine = TradingEngine(cfg)
     engine.run(mode=args.mode, symbols=symbols)
 
