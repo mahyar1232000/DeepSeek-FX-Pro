@@ -19,7 +19,7 @@ from broker_interface.OrderManager import OrderManager
 
 
 class TradingEngine:
-    def __init__(self, risk_params: Dict[str, Any]) -> None:
+    def __init__(self, risk_params: Dict[str, Any], creds: Dict[str, str]) -> None:
         self.logger = logging.getLogger("TradingEngine")
         if not self.logger.handlers:
             handler = logging.StreamHandler()
@@ -51,7 +51,7 @@ class TradingEngine:
         self.executor = OrderExecutor(self.order_manager)
 
     def initialize(self) -> bool:
-        creds = load_credentials()
+        # use creds passed at init
         return self.mt5.connect(
             login=creds["login"],
             password=creds["password"],

@@ -9,12 +9,16 @@ model:
   save_interval: 10
 
 strategy:
-  symbols: config/symbol_list.json   # list of symbols :contentReference[oaicite:0]{index=0}
-  timeframes: [ 1, 15 ]                # M1, M15 as integer codes
-  bars: 1000                         # number of bars per fetch
-  risk_params: config/risk_params.json   # risk settings :contentReference[oaicite:1]{index=1}
+  symbols: config/symbol_list.json
+  timeframes: [1, 15]
+  bars: 1000
+  risk_params: config/risk_params.json
 
 meta_trader:
   login: 90217066
   server: "LiteFinance-MT5-Demo"
   password: "encrypted_placeholder"
+
+security:
+  key_file: config/key.key            # encryption key
+  credentials_file: config/credentials.enc  # Encrypted credentials file
