@@ -19,28 +19,21 @@ class TradingEngine:
     def __init__(self, config: dict) -> None:
         self.config = config
         self.logger = logging.getLogger("TradingEngine")
-        log_level = self.config.get('log_level', 'INFO').upper()
+        log_level = self.config.get('logging', {}).get('level', 'INFO').upper()
         logging.basicConfig(level=getattr(logging, log_level))
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = self.config.get('logging', {}).get('tf_log_level', '2')
 
-        # Suppress TensorFlow GPU warnings if GPU not available
-        os.environ['TF_CPP_MIN_LOG_LEVEL'] = self.config.get('tf_log_level', '2')
-
-        # Model updater for loading/saving forecast models
-        save_dir = self.config.get('model_save_dir', 'models')
+        # Model updater and forecasting
+        save_dir = self.config.get('model', {}).get('path', 'models')
         os.makedirs(save_dir, exist_ok=True)
         self.model_updater = ModelUpdater(save_dir)
-
-        # Forecasting module
         self.forecaster = ForecastModule(self.model_updater)
 
-        # Strategy generation
+        # Strategy, risk, and execution
         self.strategy_generator = StrategyGenerator()
-
-        # Risk evaluation with parameters from config
-        risk_params = self.config.get('risk_parameters', {})
+        risk_params = self.config.get('security', {}).get('risk_params', None) or self.config.get('risk_params', {})
         self.risk_evaluator = RiskEvaluator(risk_params)
 
-        # Other core components
         self.mt5 = MT5Controller()
         self.data_feed = DataFeed()
         self.order_manager = OrderManager()
@@ -50,9 +43,16 @@ class TradingEngine:
         self.alerts = AlertSystem()
 
     def initialize(self) -> bool:
-        creds = load_credentials()
+        sec_cfg = self.config.get('security', {})
+        key_file = sec_cfg.get('key_file', 'config/key.key')
+        credentials_file = sec_cfg.get('credentials_file', 'config/credentials.enc')
+        try:
+            creds = load_credentials(path=credentials_file, key_path=key_file)
+        except Exception as e:
+            self.logger.error(f"Failed to load credentials: {e}")
+            return False
         if not creds:
-            self.logger.error("Failed to load credentials.")
+            self.logger.error("Invalid credentials.")
             return False
         return self.mt5.connect(
             login=creds["login"],
@@ -64,44 +64,28 @@ class TradingEngine:
         if not self.initialize():
             self.logger.error("Initialization failed. Exiting.")
             return
-
-        # Determine symbols to process
-        if mode == 'live':
-            symbol_list = symbols or self.config.get('symbols', [])
-        else:
-            symbol_list = self.config.get('backtest', {}).get('symbols', [])
-
-        timeframe = self.config.get('timeframe', 60)
-        bars = self.config.get('bars', 500)
+        symbol_list = symbols if mode == 'live' and symbols else self.config.get('strategy', {}).get('symbols', [])
+        timeframe = self.config.get('strategy', {}).get('timeframes', [60])[0]
+        bars = self.config.get('strategy', {}).get('bars', 500)
         self.logger.info("Starting %s mode for symbols: %s", mode, symbol_list)
-
         for symbol in symbol_list:
             try:
                 self.run_cycle(symbol, timeframe, bars)
             except Exception as e:
-                self.logger.exception("Error during run cycle for %s: %s", symbol, e)
-
+                self.logger.exception("Error in run_cycle for %s: %s", symbol, e)
         self.logger.info("Run complete.")
 
     def run_cycle(self, symbol: str, timeframe: int, bars: int) -> None:
         data = self.data_feed.get_ohlcv(symbol, timeframe, bars)
         if data is None:
-            self.logger.warning("No data for %s", symbol)
+            self.logger.warning(f"No data for {symbol}")
             return
-
-        # Forecasting
         forecast = self.forecaster.predict(symbol, data)
-
-        # Strategy generation
         strategy = self.strategy_generator.generate(data, forecast)
-
-        # Risk check
         if self.risk_evaluator.evaluate(strategy):
-            # Execute and track
             self.executor.execute(strategy)
             self.portfolio_manager.update_position(strategy['symbol'], strategy['volume'])
             self.performance_tracker.record_trade(strategy.get('expected_pnl', 0))
-            # Save updated model if provided
             model = strategy.get('model')
             if model:
                 self.model_updater.save_model(symbol, model)

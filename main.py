@@ -4,7 +4,7 @@ import os
 import argparse
 import yaml
 from core.TradingEngine import TradingEngine
-from utils.SecurityModule import SecurityManager, load_credentials
+from utils.SecurityModule import SecurityManager
 
 
 def parse_args():
@@ -20,7 +20,6 @@ def parse_args():
 
 def main():
     args = parse_args()
-
     if args.generate_key:
         security = SecurityManager()
         key = security.generate_key().decode()
@@ -35,22 +34,21 @@ def main():
         credentials = f"{login}:{password}:{server}"
         encrypted = security.encrypt_data(credentials)
         os.makedirs(os.path.dirname(args.config), exist_ok=True)
-        with open('config/credentials.enc', 'wb') as f:
+        creds_path = yaml.safe_load(open(args.config))['security']['credentials_file']
+        with open(creds_path, 'wb') as f:
             f.write(encrypted)
-        print(f"Credentials encrypted successfully to {os.path.abspath('config/credentials.enc')}")
+        print(f"Credentials encrypted successfully to {os.path.abspath(creds_path)}")
         return
 
     # Load configuration
     if not os.path.exists(args.config):
         print(f"Configuration file {args.config} not found.")
         return
-
     with open(args.config, 'r') as f:
         cfg = yaml.safe_load(f)
 
     symbols = [s.strip() for s in args.symbols.split(',')] if args.symbols else None
 
-    # Initialize and run trading engine
     engine = TradingEngine(cfg)
     engine.run(mode=args.mode, symbols=symbols)
 

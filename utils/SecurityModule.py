@@ -3,28 +3,28 @@ import os
 from cryptography.fernet import Fernet
 
 
-def load_key(path='config/secret.key'):
+def load_key(path: str):
     if not os.path.exists(path):
-        raise FileNotFoundError("Encryption key file not found.")
+        raise FileNotFoundError(f"Encryption key file '{path}' not found.")
     with open(path, 'rb') as f:
         return f.read()
 
 
-def load_credentials(path='config/credentials.enc', key_path='config/secret.key'):
+def load_credentials(path: str, key_path: str):
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Credentials file '{path}' not found.")
+    key = load_key(key_path)
+    encrypted_data = open(path, 'rb').read()
     try:
-        key = load_key(key_path)
-        with open(path, 'rb') as f:
-            encrypted_data = f.read()
-        decrypted = Fernet(key).decrypt(encrypted_data).decode()
-        login, password, server = decrypted.split(":")
+        login, password, server = Fernet(key).decrypt(encrypted_data).decode().split(":")
         return {"login": login, "password": password, "server": server}
     except Exception as e:
-        print(f"Error loading credentials: {e}")
+        print(f"Error decrypting credentials: {e}")
         return None
 
 
 class SecurityManager:
-    def __init__(self, key_path='config/secret.key'):
+    def __init__(self, key_path: str = 'config/key.key'):
         self.key_path = key_path
         if not os.path.exists(self.key_path):
             self.key = self.generate_key()
@@ -32,7 +32,7 @@ class SecurityManager:
             self.key = load_key(self.key_path)
         self.fernet = Fernet(self.key)
 
-    def generate_key(self):
+    def generate_key(self) -> bytes:
         key = Fernet.generate_key()
         os.makedirs(os.path.dirname(self.key_path), exist_ok=True)
         with open(self.key_path, 'wb') as f:
