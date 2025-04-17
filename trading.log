@@ -1,0 +1,48 @@
+2025-04-17 02:39:43,440 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 02:41:29,239 - TradingBot - INFO - Developed strategy for EURUSD_o
+2025-04-17 02:43:13,739 - TradingBot - INFO - Developed strategy for GBPUSD_o
+2025-04-17 02:45:01,857 - TradingBot - INFO - Developed strategy for USDJPY_o
+2025-04-17 02:45:01,863 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:46:01,869 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:47:01,871 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:48:01,880 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:49:01,892 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:50:01,903 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:51:01,912 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:52:01,922 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:53:01,927 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:54:01,942 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:55:01,951 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:56:01,963 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:57:01,974 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:58:01,986 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 02:59:02,002 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:00:02,003 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:01:02,008 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:02:02,017 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:03:02,018 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:04:02,020 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:05:02,021 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:05:48,205 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 03:09:22,908 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 03:14:01,528 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 03:32:15,646 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 03:34:01,261 - TradingBot - INFO - Developed strategy for EURUSD_o
+2025-04-17 03:35:44,112 - TradingBot - INFO - Developed strategy for GBPUSD_o
+2025-04-17 03:37:28,036 - TradingBot - INFO - Developed strategy for USDJPY_o
+2025-04-17 03:37:28,037 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:38:28,051 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:39:28,055 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 03:41:55,960 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 03:45:52,385 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 03:49:10,411 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 03:52:49,307 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 03:58:29,016 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 04:06:50,726 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 04:14:17,724 - TradingBot - INFO - Selected symbols for trading: ['EURUSD_o', 'GBPUSD_o', 'USDJPY_o']
+2025-04-17 04:15:54,001 - TradingBot - INFO - Developed strategy for EURUSD_o
+2025-04-17 04:17:32,331 - TradingBot - INFO - Developed strategy for GBPUSD_o
+2025-04-17 04:19:25,790 - TradingBot - INFO - Developed strategy for USDJPY_o
+2025-04-17 04:19:25,792 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 04:20:25,796 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape
+2025-04-17 04:21:25,797 - TradingBot - ERROR - An error occurred: all input arrays must have the same shape

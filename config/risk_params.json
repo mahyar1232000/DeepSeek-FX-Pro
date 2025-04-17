@@ -1,0 +1,6 @@
+{
+  "max_risk_per_trade": 0.02,
+  "max_drawdown": 0.15,
+  "risk_reward_ratio": 2.0,
+  "leverage": 30
+}

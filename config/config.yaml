@@ -1,0 +1,21 @@
+# ---------- config/config.yaml ----------
+logging:
+  level: INFO
+  file: logs/trading.log
+
+model:
+  path: models/
+  type: ensemble
+  save_interval: 10
+
+strategy:
+  timeframes:
+    - M1
+    - M15
+  symbols: config/symbol_list.json
+  risk: config/risk_params.json
+
+meta_trader:
+  login: 90217066
+  server: "LiteFinance-MT5-Demo"
+  password: "encrypted_placeholder"

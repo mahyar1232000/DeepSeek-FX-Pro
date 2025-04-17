@@ -1,0 +1,13 @@
+# ---------- requirements.txt ----------
+numpy
+pandas
+scikit-learn
+tensorflow-intel
+keras
+tensorboard
+tensorflow==2.8.0
+MetaTrader5>=5.0.43
+pandas_ta
+cryptography
+joblib==1.4.2
+PyYAML==6.0.2
