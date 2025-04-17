@@ -17,7 +17,8 @@ def load_credentials(path: str, key_path: str):
     encrypted_data = open(path, 'rb').read()
     try:
         decrypted_data = Fernet(key).decrypt(encrypted_data).decode()
-        login, password, server = decrypted_data.split(":", 2)
+        login_str, password, server = decrypted_data.split(":", 2)
+        login = int(login_str)
         return {"login": login, "password": password, "server": server}
     except Exception as e:
         print(f"Error decrypting credentials: {e}")
