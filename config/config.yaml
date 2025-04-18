@@ -1,4 +1,5 @@
 # config/config.yaml
+
 logging:
   level: INFO
   tf_log_level: "2"
@@ -11,13 +12,18 @@ security:
   credentials_file: config/credentials.enc
 
 strategy:
-  symbols:
-    - EURUSD_o
+  # trade symbols defined here:
+  symbols: [EURUSD_o, GBPUSD_o, USDJPY_o, XAUUSD_o]
+
+  # per‑timeframe parameters
   timeframes: [1, 5, 15]
   bars: 500
-  stop_loss_pct: 0.002     # 0.2% stop‑loss
-  take_profit_pct: 0.004   # 0.4% take‑profit
+
+  # stop‑loss / take‑profit as decimal fractions
+  stop_loss_pct: 0.002      # 0.2%
+  take_profit_pct: 0.004    # 0.4%
 
 risk:
-  risk_pct: 1.0            # 1% of equity per trade
+  # risk evaluator settings
+  risk_pct: 1.0             # percent of equity per trade
   min_reward_risk_ratio: 1.5
