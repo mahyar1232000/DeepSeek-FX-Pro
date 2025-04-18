@@ -160,7 +160,7 @@ EOL
 ##############################
 cat <<EOL > config/config.yaml
 api_key: "demo"
-account_id: "1234567"
+account_id: "90217066"
 mode: "live"
 EOL
 

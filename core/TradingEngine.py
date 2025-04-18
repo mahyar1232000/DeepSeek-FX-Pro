@@ -13,14 +13,13 @@ from core.PerformanceTracker import PerformanceTracker
 from core.AlertSystem import AlertSystem
 from core.PortfolioManager import PortfolioManager
 from utils.SecurityModule import load_credentials
+import MetaTrader5 as mt5
 
 
 class TradingEngine:
     def __init__(self, config):
         self.config = config
         self.mt5 = MT5Controller(config)
-        if not self.mt5.connect():
-            raise RuntimeError("MT5 connection failed")
         self.logger = logging.getLogger("TradingEngine")
         log_level = self.config.get('logging', {}).get('level', 'INFO').upper()
         logging.basicConfig(level=getattr(logging, log_level))
@@ -57,11 +56,22 @@ class TradingEngine:
         if not creds:
             self.logger.error("Invalid credentials.")
             return False
-        return self.mt5.connect(
-            login=creds["login"],
-            password=creds["password"],
-            server=creds["server"]
-        )
+
+        # Initialize MetaTrader 5 terminal
+        terminal_path = "C:\\pythonproject\\DeepSeek-FX-Pro\\mt5\\terminal64.exe"  # Adjust path as needed
+        if not mt5.initialize(path=terminal_path):
+            self.logger.error(f"MetaTrader 5 initialization failed, error code = {mt5.last_error()}")
+            return False
+
+        # Log in to trading account
+        login = int(creds["login"])  # Ensure login is an integer
+        password = creds["password"]
+        server = creds["server"]
+        if not mt5.login(login, password=password, server=server):
+            self.logger.error(f"Login failed, error code = {mt5.last_error()}")
+            return False
+
+        return True
 
     def run(self, mode: str = 'live', symbols: list = None) -> None:
         if not self.initialize():

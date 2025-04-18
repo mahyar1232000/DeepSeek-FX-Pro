@@ -1,6 +1,7 @@
 # main.py
 # !/usr/bin/env python3
 import os
+import json
 import argparse
 import yaml
 from core.TradingEngine import TradingEngine
@@ -8,12 +9,8 @@ from utils.SecurityModule import SecurityManager
 
 
 def load_config():
-    # Load your configuration from a file or environment variables
-    return {
-        "login": 90217066,
-        "password": "Mahyar1232000@",
-        "server": "LiteFinance-MT5-Demo"
-    }
+    with open('config.json') as config_file:
+        return json.load(config_file)
 
 
 def parse_args():

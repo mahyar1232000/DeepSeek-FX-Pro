@@ -88,8 +88,8 @@ pip install -r requirements.txt
    		key.key: Contains the Fernet key.
    		credentials.enc: Contains the encrypted credentials.
 
-   To Decrypt the credentials to confirm their accuracy:​
-   python config/DecryptCredentials.py
+	To Decrypt the credentials to confirm their accuracy:​
+		python config/DecryptCredentials.py
 
 4. Configure parameters in `config/config.yaml`
 

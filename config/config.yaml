@@ -23,7 +23,7 @@ mt5:
 meta_trader:
   login: 90217066
   server: "LiteFinance-MT5-Demo"
-  password: "encrypted_placeholder"
+  password: "Mahyar1232000@"
 
 security:
   key_file: config/key.key            # encryption key
