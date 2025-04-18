@@ -19,6 +19,8 @@
       <change beforePath="$PROJECT_DIR$/config/credentials.enc" beforeDir="false" afterPath="$PROJECT_DIR$/config/credentials.enc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/credentials.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/credentials.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/key.key" beforeDir="false" afterPath="$PROJECT_DIR$/config/key.key" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/risk_params.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/symbol_list.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/TradingEngine.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/TradingEngine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/credentials.enc" beforeDir="false" />
@@ -72,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1744890910825</updated>
-      <workItem from="1744890911420" duration="25826000" />
+      <workItem from="1744890911420" duration="26617000" />
     </task>
     <servers />
   </component>
