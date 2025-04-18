@@ -18,6 +18,9 @@ from utils.SecurityModule import load_credentials
 class TradingEngine:
     def __init__(self, config: dict) -> None:
         self.config = config
+        self.mt5 = MT5Controller(config)
+        if not self.mt5.connect():
+            raise RuntimeError("MT5 connection failed")
         self.logger = logging.getLogger("TradingEngine")
         log_level = self.config.get('logging', {}).get('level', 'INFO').upper()
         logging.basicConfig(level=getattr(logging, log_level))

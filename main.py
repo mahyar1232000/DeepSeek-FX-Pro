@@ -7,6 +7,15 @@ from core.TradingEngine import TradingEngine
 from utils.SecurityModule import SecurityManager
 
 
+def load_config():
+    # Load your configuration from a file or environment variables
+    return {
+        "login": 90217066,
+        "password": "Mahyar1232000@",
+        "server": "LiteFinance-MT5-Demo"
+    }
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description='DeepSeek FX Pro Trading Bot')
     parser.add_argument('--generate_key', action='store_true', help='Generate a new encryption key')
