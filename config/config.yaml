@@ -1,14 +1,23 @@
 # config/config.yaml
 logging:
   level: INFO
-  file: logs/trading.log
+  tf_log_level: "2"
+
+model:
+  path: models
 
 security:
   key_file: config/key.key
   credentials_file: config/credentials.enc
 
 strategy:
-  symbols_file: config/symbol_list.json
-  risk_params_file: config/risk_params.json
-  timeframes: [ 1, 5, 15 ]
+  symbols:
+    - EURUSD_o
+  timeframes: [1, 5, 15]
   bars: 500
+  stop_loss_pct: 0.002     # 0.2% stop‑loss
+  take_profit_pct: 0.004   # 0.4% take‑profit
+
+risk:
+  risk_pct: 1.0            # 1% of equity per trade
+  min_reward_risk_ratio: 1.5

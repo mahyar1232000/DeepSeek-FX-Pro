@@ -9,7 +9,6 @@
       <change afterPath="$PROJECT_DIR$/config/DecryptCredentials.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/logs/trading.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai_engine/ForecastModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_engine/ForecastModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai_engine/StrategyGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_engine/StrategyGenerator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/broker_interface/MT5Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/broker_interface/MT5Controller.py" afterDir="false" />
@@ -72,7 +71,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1744890910825</updated>
-      <workItem from="1744890911420" duration="25114000" />
+      <workItem from="1744890911420" duration="25517000" />
     </task>
     <servers />
   </component>
