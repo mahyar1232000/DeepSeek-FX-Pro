@@ -4,7 +4,6 @@ import time
 from pathlib import Path
 from typing import Dict
 
-
 def setup_logger() -> logging.Logger:
     logger = logging.getLogger("MT5Controller")
     if not logger.handlers:
@@ -14,7 +13,6 @@ def setup_logger() -> logging.Logger:
         logger.addHandler(handler)
         logger.setLevel(logging.INFO)
     return logger
-
 
 class MT5Controller:
     def __init__(self, config: Dict):

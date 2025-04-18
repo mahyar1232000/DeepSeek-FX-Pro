@@ -28,6 +28,12 @@ def parse_args():
 
 
 def main():
+    config = load_config()
+    try:
+        engine = TradingEngine(config)
+        # Start your trading operations
+    except RuntimeError as e:
+        print(f"Initialization failed: {e}")
     args = parse_args()
     if args.generate_key:
         security = SecurityManager()

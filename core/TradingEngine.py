@@ -16,7 +16,7 @@ from utils.SecurityModule import load_credentials
 
 
 class TradingEngine:
-    def __init__(self, config: dict) -> None:
+    def __init__(self, config):
         self.config = config
         self.mt5 = MT5Controller(config)
         if not self.mt5.connect():
@@ -37,7 +37,7 @@ class TradingEngine:
         risk_params = self.config.get('security', {}).get('risk_params', None) or self.config.get('risk_params', {})
         self.risk_evaluator = RiskEvaluator(risk_params)
 
-        self.mt5 = MT5Controller()
+        self.mt5 = MT5Controller(self.config)
         self.data_feed = DataFeed()
         self.order_manager = OrderManager()
         self.executor = OrderExecutor(self.order_manager)
