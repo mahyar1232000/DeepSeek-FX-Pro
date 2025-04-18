@@ -1,30 +1,14 @@
-# ---------- config/config.yaml ----------
+# config/config.yaml
 logging:
   level: INFO
   file: logs/trading.log
 
-model:
-  path: models/
-  type: ensemble
-  save_interval: 10
+security:
+  key_file: config/key.key
+  credentials_file: config/credentials.enc
 
 strategy:
-  symbols: config/symbol_list.json
-  timeframes: [ 1, 15 ]
-  bars: 1000
-  risk_params: config/risk_params.json
-
-mt5:
-  terminal_path: "/opt/mt5/terminal64.exe"
-  timeout: 30          # ثانیه
-  retry_interval: 5    # ثانیه
-  max_retries: 3
-
-meta_trader:
-  login: 90217066
-  server: "LiteFinance-MT5-Demo"
-  password: "Mahyar1232000@"
-
-security:
-  key_file: config/key.key            # encryption key
-  credentials_file: config/credentials.enc  # Encrypted credentials file
+  symbols_file: config/symbol_list.json
+  risk_params_file: config/risk_params.json
+  timeframes: [ 1, 5, 15 ]
+  bars: 500

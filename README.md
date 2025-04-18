@@ -88,8 +88,8 @@ pip install -r requirements.txt
    		key.key: Contains the Fernet key.
    		credentials.enc: Contains the encrypted credentials.
 
-	To Decrypt the credentials to confirm their accuracy:​
-		python config/DecryptCredentials.py
+   To Decrypt the credentials to confirm their accuracy:​
+   python config/DecryptCredentials.py
 
 4. Configure parameters in `config/config.yaml`
 
@@ -102,3 +102,27 @@ python main.py
 ## License
 
 MIT License
+
+
+
+
+How to use this
+------------------
+Generate your key
+
+bash
+Copy
+Edit
+python main.py --generate_key
+Encrypt your real MT5 creds
+
+bash
+Copy
+Edit
+python main.py --encrypt_credentials
+Run live trading
+
+bash
+Copy
+Edit
+python main.py --mode=live --symbols=EURUSD_o,GBPUSD_o

@@ -1,51 +1,45 @@
 # utils/SecurityModule.py
-import os
-import json
+import os, json
 from cryptography.fernet import Fernet
 
 
-def load_key(path: str):
+def load_key(path: str) -> bytes:
     if not os.path.exists(path):
         raise FileNotFoundError(f"Encryption key file '{path}' not found.")
-    with open(path, 'rb') as f:
-        return f.read()
+    return open(path, 'rb').read()
 
 
-def load_credentials(path: str, key_path: str):
+def load_credentials(path: str, key_path: str) -> dict:
+    """Decrypts a JSON credentials file."""
     if not os.path.exists(path):
         raise FileNotFoundError(f"Credentials file '{path}' not found.")
     key = load_key(key_path)
     encrypted_data = open(path, 'rb').read()
     try:
-        decrypted_data = Fernet(key).decrypt(encrypted_data).decode()
-        credentials = json.loads(decrypted_data)
-        login = int(credentials["login"])
-        password = credentials["password"]
-        server = credentials["server"]
-        return {"login": login, "password": password, "server": server}
+        decrypted = Fernet(key).decrypt(encrypted_data).decode('utf-8')
+        creds = json.loads(decrypted)
+        return {
+            "login": int(creds["login"]),
+            "password": creds["password"],
+            "server": creds["server"]
+        }
     except Exception as e:
-        print(f"Error decrypting credentials: {e}")
-        return None
+        raise ValueError(f"Error decrypting credentials: {e}")
 
 
 class SecurityManager:
     def __init__(self, key_path: str = 'config/key.key'):
         self.key_path = key_path
         if not os.path.exists(self.key_path):
-            self.key = self.generate_key()
-        else:
-            self.key = load_key(self.key_path)
-        self.fernet = Fernet(self.key)
+            os.makedirs(os.path.dirname(self.key_path), exist_ok=True)
+            with open(self.key_path, 'wb') as f:
+                f.write(Fernet.generate_key())
+        self.fernet = Fernet(load_key(self.key_path))
 
-    def generate_key(self) -> bytes:
-        key = Fernet.generate_key()
-        os.makedirs(os.path.dirname(self.key_path), exist_ok=True)
-        with open(self.key_path, 'wb') as f:
-            f.write(key)
-        return key
+    def encrypt_credentials(self, credentials: dict) -> bytes:
+        """Encrypts a credentials dict into bytes."""
+        payload = json.dumps(credentials)
+        return self.fernet.encrypt(payload.encode('utf-8'))
 
-    def encrypt_data(self, data: str) -> bytes:
-        return self.fernet.encrypt(data.encode())
-
-    def decrypt_data(self, encrypted_data: bytes) -> str:
-        return self.fernet.decrypt(encrypted_data).decode()
+    def decrypt_credentials(self, encrypted_data: bytes) -> dict:
+        return json.loads(self.fernet.decrypt(encrypted_data).decode('utf-8'))
